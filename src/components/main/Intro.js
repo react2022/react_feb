@@ -1,13 +1,15 @@
 import { useSelector } from 'react-redux';
 
-export default function Intro(){
+export default function Intro(props){
   const members = useSelector(state=> state.departmentReducer.members);  
   const path = process.env.PUBLIC_URL;
 
   return (
     <section id='intro' className='myScroll'>
       <div className="inner">
-        <h1>Introduction</h1>
+        <h1 style={{
+          transform: `translateX(${props.scrolled/7}px)`
+        }}>Introduction</h1>
 
         <ul>
           {members.map((member,idx)=>{

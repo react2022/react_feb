@@ -62,10 +62,10 @@ export default function Main(){
 
   return (
     //scrolled값을 원하는 컴포넌트의 스타일 객체에 연동
-    <div id='mainWrap' ref={main} style={{transform: `translateX(${-scrolled}px)`}}>
+    <div id='mainWrap' ref={main} style={{transform: `translateX(${0}px)`}}>
       <Header type={'main'} />
       <Visual />
-      <Intro />
+      <Intro scrolled={scrolled} />
       <News />
       <Info />    
       <Pics />
