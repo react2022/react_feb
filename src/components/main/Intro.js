@@ -27,7 +27,8 @@ export default function Intro({scrolled, posStart, posEnd}){
                 style={
                   scrolled>=start && scrolled<end
                   ?
-                  {transform: `translateY(${position}px)`}
+                  //순서값에 1을 더하면 각수치값의 1배,2배,3배 (이때 값을 나눠주면 격차범위가 줄어듬)
+                  {transform: `translateY(${position*(idx/3+1)}px)`}
                   :
                   null
                 }
