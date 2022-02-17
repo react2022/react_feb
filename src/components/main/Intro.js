@@ -1,15 +1,25 @@
 import { useSelector } from 'react-redux';
 
-export default function Intro(props){
+//비구조 할당으로 props객체로 전달되는 키값을 바로 매개변수명으로 활용해서 데이터 전달
+export default function Intro({scrolled, posStart}){
   const members = useSelector(state=> state.departmentReducer.members);  
-  const path = process.env.PUBLIC_URL;
+  const path = process.env.PUBLIC_URL;  
+  const base = 0; //시작위치에 적용될 보정값
+  const start = posStart+base; //해당 박스의 보정된 시작위치
+  const position = scrolled - start; //실제 스크롤되고 있는 거리값
 
   return (
     <section id='intro' className='myScroll'>
       <div className="inner">
-        <h1 style={{
-          transform: `translateX(${props.scrolled/7}px)`
-        }}>Introduction</h1>
+        <h1 style={
+          //현재스크롤되는 구간이 해당 박스영역에 도달하면
+          scrolled>=start
+          ?
+          //스크롤 거리값을 스타일값으로 연동
+          {transform: `translateX(${position/7}px)`}
+          :
+          null
+        }>Introduction</h1>
 
         <ul>
           {members.map((member,idx)=>{
