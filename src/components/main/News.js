@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function News(){
-  //초기 로딩시 사용자 컴퓨터에 localStorage에 데이터가 없을시 임의로 보여줄 초기 데이터
+export default function News({scrolled, posStart, posEnd}){
   const defaultData = [
     {title: 'Hello1', content: 'Here comes description in detail.'},
     {title: 'Hello2', content: 'Here comes description in detail.'},
@@ -10,7 +9,6 @@ export default function News(){
     {title: 'Hello5', content: 'Here comes description in detail.'},
     {title: 'Hello6', content: 'Here comes description in detail.'}
   ]
-
   const getLocalItems = () => {
     let data = localStorage.getItem('posts');
 
@@ -20,10 +18,15 @@ export default function News(){
       return defaultData;
     }
   }
-
   const [posts] = useState(getLocalItems);
 
-  //posts에 초기 데이터값이 담기자마자 localStorage에도 데이터 저장
+  const base = 0;
+  const start = posStart+base;
+  const end = posEnd+base;
+  const position = scrolled-start;
+  let style={};
+
+  
   useEffect(()=>{
     localStorage.setItem('posts', JSON.stringify(posts));
   },[]);
@@ -35,9 +38,15 @@ export default function News(){
         
         <ul>
           {posts.map((post, idx)=>{
+            if(idx%2===0){//짝수번째 요소일때
+              style={transform: `translateX(${position*(idx/2+1)}px)`}
+            }
+            else{ //홀수번째 요소일떄
+              style={transform: `translateX(${-position*(idx/2+1)}px)`}
+            }
             if(idx < 4) {
               return (              
-                <li key={idx}>
+                <li key={idx} style={scrolled<=start ? style : null}> 
                   <h2>{post.title}</h2>
                   <p>{post.content}</p>
                 </li>

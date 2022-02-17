@@ -69,7 +69,11 @@ export default function Main(){
         posStart={pos.current[1]}
         posEnd={pos.current[2]}
       />
-      <News />
+      <News 
+        scrolled={scrolled} 
+        posStart={pos.current[2]}
+        posEnd={pos.current[3]}
+      />
       <Info />    
       <Pics />
       <Btns getIndex={getIndex} />
