@@ -22,8 +22,7 @@ export default function Info(){
   const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&key=${api_key}&playlistId=${play_list}&maxResults=${num}`;
 
   const fetchYoutube = async () => { 
-    await axios.get(url).then(json=>{
-      console.log(json.data.items);
+    await axios.get(url).then(json=>{     
       dispatch(setYoutube(json.data.items));     
     });    
   }

@@ -12,8 +12,8 @@ export default function Main(){
   const main = useRef(null);  
   const pos = useRef([]);
   const [index, setIndex] = useState(0);
-
-  //자식 컴포넌트에 순서값을 변경하는 함수를 wrappging함수로 정의
+  //현재 스크롤되는 값을 관리할 state생성
+  const [scrolled, setScrolled] = useState(0);
   const getIndex = index => {
     setIndex(index);
   }
@@ -26,7 +26,9 @@ export default function Main(){
   }
 
   const activation = () => {
-    const base = -200;
+    //브라우저가 스크롤될때마다 scrolled 값 변경
+    setScrolled(window.scrollY);
+    const base = 0;
     let scroll = window.scrollY;  
     const btns = main.current.querySelectorAll('#btns li');
 
@@ -49,20 +51,18 @@ export default function Main(){
     } 
   },[]);
 
-  //index값이 변경될때마다 실행될 useEffect추가
-  useEffect(()=>{
 
-    //index값이 변경될때하마 해당 순번의 위치로 스크롤 이동
+  useEffect(()=>{ 
     new Anime(window, {
       prop: 'scroll',
       value: pos.current[index],
       duration: 500
     })
-
   },[index])
 
   return (
-    <div id='mainWrap' ref={main}>
+    //scrolled값을 원하는 컴포넌트의 스타일 객체에 연동
+    <div id='mainWrap' ref={main} style={{transform: `translateX(${-scrolled}px)`}}>
       <Header type={'main'} />
       <Visual />
       <Intro />
