@@ -60,15 +60,14 @@ export default function Main(){
     })
   },[index])
 
-  return (
-    //scrolled값을 원하는 컴포넌트의 스타일 객체에 연동
+  return (    
     <div id='mainWrap' ref={main}>
       <Header type={'main'} />
-      <Visual />
-      {/* scrolled값 Intro컴포넌트에 전달 */}
+      <Visual />     
       <Intro 
         scrolled={scrolled} 
         posStart={pos.current[1]}
+        posEnd={pos.current[2]}
       />
       <News />
       <Info />    
