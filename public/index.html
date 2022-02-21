@@ -27,96 +27,95 @@
     <div class="mask">LOADING...</div> 
     
     <script>
-      //캐싱할 이미지 주소를 배열로 저장
+      //초기값 설정
       const imgs = [
-        'https://react2022.github.io/react_feb/img/bg1.jpg',
-        'https://react2022.github.io/react_feb/img/bg2.jpg',
-        'https://react2022.github.io/react_feb/img/bg3.jpg',
-        'https://react2022.github.io/react_feb/img/bg4.jpg',
-        'https://react2022.github.io/react_feb/img/bg5.jpg',
+        'http://localhost:3000/react_feb/img/bg1.jpg',
+        'http://localhost:3000/react_feb/img/bg2.jpg',
+        'http://localhost:3000/react_feb/img/bg3.jpg',
+        'http://localhost:3000/react_feb/img/bg4.jpg',
+        'http://localhost:3000/react_feb/img/bg5.jpg',
       ];
-
       const vids = [
-        'https://react2022.github.io/react_feb/img/vid1.mp4',
-        'https://react2022.github.io/react_feb/img/vid2.mp4',
+        'http://localhost:3000/react_feb/img/vid1.mp4',
+        'http://localhost:3000/react_feb/img/vid2.mp4',
       ];
-
-      //이미지주소 갯수, default, maskDOM 캐싱
+      
       const lenImg = imgs.length;
       const lenVid = vids.length;
       const defaults = document.querySelector('.default');
       const mask = document.querySelector('.mask');
       let tags = '';
-      
-      //배열을 반복돌면서 동적으로 imgDOM생성
-      imgs.forEach(src=>{
-        tags+=`<img src=${src} />`;
-      });
-
-      //배열을 반복돌면서 동적으로 vidDOM생성
-      vids.forEach(src=>{
-        tags+=`<video src=${src} />`;
-      }); 
-
-      defaults.innerHTML = tags;
-
-
-      //모든 이미지 소스가 완료되면 loadedaImg에 true값 할당
-      const imgDOM = defaults.querySelectorAll('img');
-      let countImg = 0;
       let loadedImg = false; 
-      
-      imgDOM.forEach(img => {
-        img.onload = () =>{
-          countImg++;         
-          if(countImg === lenImg) loadedImg  = true; 
-        }
-      });
+      let loadedVid = false; 
 
-      //모든 동영상 소스가 완료되면 loadedVid에 true값 할당
-      const vidDOM = defaults.querySelectorAll('video');
-      let countVid = 0;
-      let loadedVid = false;
-      
-      vidDOM.forEach(vid => {
-        vid.onloadeddata = () =>{
-          countVid++;
-          if(countVid === lenVid) loadedVid = true;
-        }
-      });
+      //imgs, vids 동적으로 DOM Cache
+      createDOM();
 
-      //loadedImg와 loadedVid값 모두 true명 default, mask제거
-      if(loadedImg && loadedVid){
-        defaults.remove();
-        mask.classList.add('off');
-        setTimeout(()=> mask.remove(), 2000);
+      //모든 promise객체가 생성완료되면
+      Promise
+      .all([loadImg(), loadVid()])
+      .then(result=>{
+        
+        const [loadedImg, loadedVid] = result;
+
+        //리턴받은 각각의 loadedImg, loadedVid값이 모두 true일때
+        if(loadedImg && loadedVid){
+          //default 와 mask제거
+          defaults.remove();
+          mask.classList.add('off');
+          setTimeout(()=> mask.remove(), 2000);
+        }  
+      }); 
+      
+      //동적으로 캐시 처리할 DOM생성함수
+      function createDOM(){      
+        imgs.forEach(src=>{
+          tags+=`<img src=${src} />`;
+        });
+        
+        vids.forEach(src=>{
+          tags+=`<video src=${src}></video>`;
+        }); 
+
+        defaults.innerHTML = tags;
+      }      
+
+      //모든 img 로딩완료되면 promise객체 생성
+      function loadImg(){  
+        return new Promise((res,rej)=>{
+          const imgDOM = defaults.querySelectorAll('img');
+          let countImg = 0;        
+          
+          imgDOM.forEach(img => {
+            img.onload = () =>{
+              countImg++;         
+              if(countImg === lenImg){
+                loadedImg  = true; 
+                res(loadedImg);              
+              }               
+            }
+          });
+        }) 
       }
+      
+      //모든 vid 로딩완료되면 promise객체 생성
+      function loadVid(){
+        return new Promise((res,rej)=>{
+          const vidDOM = defaults.querySelectorAll('video');
+          let countVid = 0;            
+          
+          vidDOM.forEach(vid => {
+            vid.onloadeddata = () =>{
+              countVid++;
+              if(countVid === lenVid) {
+                loadedVid = true;     
+                res(loadedVid);
+              }
+            }
+          }); 
+        })     
+        
+      }  
     </script>
   </body>
 </html>
-
-<!-- 
-  SSR (Server Side Rendering)
-  --서버쪽에서 데이터를 받아 브라우저 화면을 출력
-  --HTML방식 (MPA)
-  --장점 - 초기 로딩속도가 빠름
-  --단점 - 페이지이동할때마다 서버쪽에 각각의 HTML파일 데이터를 불러와야 되기 때문에 페이지 이동시 UX가 안좋음
-
-  CSR (Client Side Renderging)
-  -- 서버쪽에 모든 서브페이지까지 포함한 컴포넌트를 한번에 불러옴 
-  -- SPA
-  -- 단점 - index.html에 동적으로 넣어줄 데이터를 나중에 적용하기 때문에 SEO, 초기로딩속도 김
-  -- 장점 - 페이지 전환시 비동기적으로 라우터를 이용해서 새로 렌더링이 필요한 컴포넌트만 바꿔치기
-
-
-  NEXT.js (Framework)
-  위와 같은 SSR, CSR의 단점들을 서로 보완하기 위해서 초기화면 로딩시에는 SSR방식으로
-  그 이후 라우터 이동시에는 기존의 CSR방식으로 개발하게 도와주는 프레임워크 (검색엔진 최적화)
-
-  TypeScript
-  - 기존 자바스크립트 자료형에 따라서 변수선언시 일일이 타입을 지정하는 형태
-  - 웹팩, 바벨을 이용해서 한번 컴파일 과정을 거침
-  - 컴파일 과정에서 잠재적으로 발생할 수 있는 오류를 미리 걸러줌
-  - 실제 서비스 운영사 런타임 오류를 최소화
-
- -->

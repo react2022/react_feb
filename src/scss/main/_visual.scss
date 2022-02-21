@@ -1,11 +1,16 @@
 figure {
   width: 100%; height: 100vh; background: #555; position: relative;
 
+
   .swiper {
     height: 100%;
 
     .swiper-slide {
-      background: aqua; width: 100%; display: flex; justify-content: center; align-items: center; font-size: 10vw; color: #fff;
+      background: #000; width: 100%; display: flex; justify-content: center; align-items: center; font-size: 10vw; color: #fff; overflow: hidden;
+
+      video {
+        width: 100%; height: 100%; object-fit: cover;
+      }
     }
   }
 }

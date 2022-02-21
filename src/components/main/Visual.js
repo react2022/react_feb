@@ -15,8 +15,8 @@ export default function Visual(){
         navigation 
         pagination={{clickable:true}}
       >
-        <SwiperSlide><video src={process.env.PUBLIC_URL+'/img/vid1.mp4'} loop autoplay muted></video></SwiperSlide>
-        <SwiperSlide><video src={process.env.PUBLIC_URL+'/img/vid2.mp4'} loop autoplay muted></video></SwiperSlide>
+        <SwiperSlide><video src={process.env.PUBLIC_URL+'/img/vid1.mp4'} loop autoPlay muted></video></SwiperSlide>
+        <SwiperSlide><video src={process.env.PUBLIC_URL+'/img/vid2.mp4'} loop autoPlay muted></video></SwiperSlide>
         <SwiperSlide>Slide 3</SwiperSlide>
         <SwiperSlide>Slide 4</SwiperSlide>   
       </Swiper>
