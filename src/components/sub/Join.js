@@ -110,7 +110,8 @@ export default function Join(){
 
   return (
     <main className="content join" ref={main}>
-      <figure></figure>
+      <figure> 
+      </figure>
       
       <div className="inner">
         <h1>Join</h1>

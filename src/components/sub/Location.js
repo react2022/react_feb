@@ -73,7 +73,8 @@ export default function Location(){
 
   return (
     <main className="content location" ref={main}>
-      <figure></figure>
+      <figure>  
+      </figure>
       
       <div className="inner">
         <h1>Location</h1>

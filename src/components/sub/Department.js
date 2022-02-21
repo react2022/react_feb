@@ -35,15 +35,21 @@ export default function Department(){
       "pic": "member6.jpg"
     }
   ];
-  
 
   useEffect(()=>{  
     main.current.classList.add('on'); 
   },[]);
 
   return (
-    <main className="content department" ref={main}>      
-      <figure></figure>
+    <main className="content department" ref={main}>  
+      <img src={path+'/img/bg1.jpg'} />   
+      <img src={path+'/img/bg2.jpg'} />    
+      <img src={path+'/img/bg3.jpg'} />    
+      <img src={path+'/img/bg4.jpg'} />    
+      <img src={path+'/img/bg5.jpg'} />    
+
+      <figure>    
+      </figure>
       
       <div className="inner">
         <h1>Department</h1>

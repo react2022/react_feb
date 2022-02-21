@@ -104,7 +104,8 @@ export default function Community(){
   
   return (
     <main className="content community" ref={main}>
-      <figure></figure>
+      <figure>    
+      </figure>
       
       <div className="inner">
         <h1>Community</h1>
