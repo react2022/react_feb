@@ -36,8 +36,14 @@
         'https://react2022.github.io/react_feb/img/bg5.jpg',
       ];
 
+      const vids = [
+        'https://react2022.github.io/react_feb/img/vid1.mp4',
+        'https://react2022.github.io/react_feb/img/vid2.mp4',
+      ];
+
       //이미지주소 갯수, default, maskDOM 캐싱
-      const len = imgs.length;
+      const lenImg = imgs.length;
+      const lenVid = vids.length;
       const defaults = document.querySelector('.default');
       const mask = document.querySelector('.mask');
       let tags = '';
@@ -46,27 +52,45 @@
       imgs.forEach(src=>{
         tags+=`<img src=${src} />`;
       });
+
+      //배열을 반복돌면서 동적으로 vidDOM생성
+      vids.forEach(src=>{
+        tags+=`<video src=${src} />`;
+      }); 
+
       defaults.innerHTML = tags;
 
-      let count = 0;
 
-      //imgDOM이 생성되자마자 DOM반복을 돌면서
-      //연결된 소스이미지가 로딩완료되면 카운트증가
+      //모든 이미지 소스가 완료되면 loadedaImg에 true값 할당
       const imgDOM = defaults.querySelectorAll('img');
+      let countImg = 0;
+      let loadedImg = false; 
+      
       imgDOM.forEach(img => {
         img.onload = () =>{
-          count++;
-          console.log(count);
-          
-          //모든 소스이미지로딩갯수와 전체 이미지배열 갯수가 같으면 (로딩완료되면)
-          if(count === len){
-            //default, maskDOM제거 (리액트에서 렌더링하는 요소가 화면에 출력)
-            defaults.remove();
-            mask.classList.add('off');
-            setTimeout(()=> mask.remove(), 2000);
-          }
+          countImg++;         
+          if(countImg === lenImg) loadedImg  = true; 
         }
-      })
+      });
+
+      //모든 동영상 소스가 완료되면 loadedVid에 true값 할당
+      const vidDOM = defaults.querySelectorAll('video');
+      let countVid = 0;
+      let loadedVid = false;
+      
+      vidDOM.forEach(vid => {
+        vid.onloadeddata = () =>{
+          countVid++;
+          if(countVid === lenVid) loadedVid = true;
+        }
+      });
+
+      //loadedImg와 loadedVid값 모두 true명 default, mask제거
+      if(loadedImg && loadedVid){
+        defaults.remove();
+        mask.classList.add('off');
+        setTimeout(()=> mask.remove(), 2000);
+      }
     </script>
   </body>
 </html>
