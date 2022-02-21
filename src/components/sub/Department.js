@@ -42,7 +42,7 @@ export default function Department(){
   },[]);
 
   return (
-    <main className="content department" ref={main}>
+    <main className="content department" ref={main}>      
       <figure></figure>
       
       <div className="inner">

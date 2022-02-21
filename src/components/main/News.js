@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function News({scrolled, posStart, posEnd}){
+export default function News({scrolled, posStart}){
   const defaultData = [
     {title: 'Hello1', content: 'Here comes description in detail.'},
     {title: 'Hello2', content: 'Here comes description in detail.'},
@@ -22,7 +22,6 @@ export default function News({scrolled, posStart, posEnd}){
 
   const base = 0;
   const start = posStart+base;
-  const end = posEnd+base;
   const position = scrolled-start;
   let style={};
 

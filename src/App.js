@@ -10,9 +10,9 @@ import Join from './components/sub/Join';
 import { Route, Switch } from 'react-router-dom';
 import './scss/style.scss';
 
-export default function App() {
+export default function App() {    
   return (
-    <div className="App">   
+    <div className="App">       
       <Switch>
         <Route exact path='/' component={Main}></Route>       
         <Route path='/' component={()=> <Header type={'sub'} />}></Route>
@@ -23,9 +23,10 @@ export default function App() {
       <Route path='/gallery' component={Gallery}></Route>
       <Route path='/youtube' component={Youtube}></Route>
       <Route path='/location' component={Location}></Route>
-      <Route path='/join' component={Join}></Route>     
+      <Route path='/join' component={Join}></Route>  
 
-      <Footer />
-    </div>
+      <Footer />   
+    </div>    
   );
 }
+
