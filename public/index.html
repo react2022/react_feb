@@ -27,6 +27,7 @@
     <div class="mask">LOADING...</div> 
     
     <script>
+      //캐싱할 이미지 주소를 배열로 저장
       const imgs = [
         'https://react2022.github.io/react_feb/img/bg1.jpg',
         'https://react2022.github.io/react_feb/img/bg2.jpg',
@@ -34,24 +35,32 @@
         'https://react2022.github.io/react_feb/img/bg4.jpg',
         'https://react2022.github.io/react_feb/img/bg5.jpg',
       ];
+
+      //이미지주소 갯수, default, maskDOM 캐싱
       const len = imgs.length;
       const defaults = document.querySelector('.default');
       const mask = document.querySelector('.mask');
       let tags = '';
       
+      //배열을 반복돌면서 동적으로 imgDOM생성
       imgs.forEach(src=>{
         tags+=`<img src=${src} />`;
       });
       defaults.innerHTML = tags;
 
       let count = 0;
+
+      //imgDOM이 생성되자마자 DOM반복을 돌면서
+      //연결된 소스이미지가 로딩완료되면 카운트증가
       const imgDOM = defaults.querySelectorAll('img');
       imgDOM.forEach(img => {
         img.onload = () =>{
           count++;
           console.log(count);
-
+          
+          //모든 소스이미지로딩갯수와 전체 이미지배열 갯수가 같으면 (로딩완료되면)
           if(count === len){
+            //default, maskDOM제거 (리액트에서 렌더링하는 요소가 화면에 출력)
             defaults.remove();
             mask.classList.add('off');
             setTimeout(()=> mask.remove(), 2000);
