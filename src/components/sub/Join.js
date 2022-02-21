@@ -111,6 +111,7 @@ export default function Join(){
   return (
     <main className="content join" ref={main}>
       <figure> 
+      <img src={process.env.PUBLIC_URL+'/img/bg4.jpg'}  /> 
       </figure>
       
       <div className="inner">

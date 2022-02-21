@@ -15,7 +15,9 @@ export default function Youtube(){
   return (
     <>
     <main className="content youtube" ref={main}>
-      <figure></figure>
+      <figure>
+        <img src={process.env.PUBLIC_URL+'/img/bg1.jpg'}  /> 
+      </figure>
       
       <div className="inner">
         <h1>Youtube</h1>

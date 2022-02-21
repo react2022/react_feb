@@ -128,7 +128,8 @@ export default function Gallery(){
   return (
     <>
     <main className="content gallery" ref={main}>
-      <figure>      
+      <figure> 
+      <img src={process.env.PUBLIC_URL+'/img/bg3.jpg'}  />      
       </figure>
       
       <div className='innerWrap'>

@@ -74,6 +74,7 @@ export default function Location(){
   return (
     <main className="content location" ref={main}>
       <figure>  
+        <img src={process.env.PUBLIC_URL+'/img/bg5.jpg'}  /> 
       </figure>
       
       <div className="inner">

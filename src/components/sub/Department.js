@@ -41,14 +41,9 @@ export default function Department(){
   },[]);
 
   return (
-    <main className="content department" ref={main}>  
-      <img src={path+'/img/bg1.jpg'} />   
-      <img src={path+'/img/bg2.jpg'} />    
-      <img src={path+'/img/bg3.jpg'} />    
-      <img src={path+'/img/bg4.jpg'} />    
-      <img src={path+'/img/bg5.jpg'} />    
-
-      <figure>    
+    <main className="content department" ref={main}>   
+      <figure> 
+      <img src={process.env.PUBLIC_URL+'/img/bg2.jpg'}  />    
       </figure>
       
       <div className="inner">

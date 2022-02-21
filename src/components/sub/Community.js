@@ -104,7 +104,8 @@ export default function Community(){
   
   return (
     <main className="content community" ref={main}>
-      <figure>    
+      <figure>   
+        <img src={process.env.PUBLIC_URL+'/img/bg1.jpg'}  /> 
       </figure>
       
       <div className="inner">
